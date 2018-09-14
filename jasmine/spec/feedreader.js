@@ -32,29 +32,57 @@ $(function() {
          * and that the URL is not empty.
          */
 
+         it('url defined', function(){
+           allFeeds.forEach(function(feed){
+             expect(feed.url).toBeTruthy();
+           });
+         });
+
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+         it('names defined',function() {
+           allFeeds.forEach(function(feed){
+             expect(feed.name).toBeDefined();
+             expect(feed.name).not.toEqual('');
+           });
+         });
     });
 
 
     /* TODO: Write a new test suite named "The menu" */
+    describe('The menu', function(){
 
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+         it('menu hiden',function(){
+           // here he is hidden
+           expect($('body').hasClass('menu-hidden')).toBe(true);
+         })
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
           * should have two expectations: does the menu display when
           * clicked and does it hide when clicked again.
           */
+          it('menu visible', function() {
+            //menu display when clicked
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBe(false);
+            //it hide when clicked again
+            $('.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
+          });
+    });
 
     /* TODO: Write a new test suite named "Initial Entries" */
+    describe('Initial Entries', function() {
+
 
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
@@ -63,10 +91,45 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
 
+        //asynchronous
+        var dataFeed;
+        beforeEach(function(done){
+          loadFeed(0, done);
+          dataFeed = $('.feed').html();
+        });
+
+        it('at least one (.entry element)', function() {
+          var feedLength = $('.feed .entry').length;
+          expect(feedLength).toBeGreaterThan(0);
+        });
+
+
+    });
     /* TODO: Write a new test suite named "New Feed Selection" */
+    describe('New Feed Selection', function() {
+
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+         //asynchronous
+         var dataFeedNew1,  dataFeedNew2;
+         beforeEach(function(done){
+
+           loadFeed(0, function() {
+             dataFeedNew1 = $('.feed').html();
+             loadFeed(1, function() {
+               dataFeedNew2 = $('.feed').html();
+               done();
+             });
+           });
+         });
+
+         it('new feed loaded', function() {
+           expect(dataFeedNew1).not.toEqual(dataFeedNew2);
+         });
+
+      });
 }());
