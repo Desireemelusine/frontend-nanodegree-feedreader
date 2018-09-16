@@ -2,6 +2,16 @@
 
 This is web-based application that reads RSS feeds. The original developer of this application clearly included [Jasmine](http://jasmine.github.io/) and wrote the first test suite ( RSS Feeds - are defined).
 
+## Take a look on the project
+To fully understand how Jasmine works, follow the procedures:
+
+1. Download or clone the project
+2. Unzip it
+3. Open up `index.html`
+4. Jasmine tests should be at the end of this file
+   Green point means everything is ok.
+   Red point means there is something wrong
+
 ### Test:
 Edit the `allFeeds` variable in **./js/app.js** to make the provided test fail and see how Jasmine visualizes this failure in your application, work to implement the changes and then return the `allFeeds` variable to a passing state.
 
